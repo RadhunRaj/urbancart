@@ -108,12 +108,13 @@
               <div class="signup-form">
                 <h3 class="card-title text-center">Sign Up</h3>
 
-                <form>
+                <form method="post" action="/signup">
                   <div class="form-group">
                     <label for="name">Full Name</label>
                     <input
                       type="text"
                       class="form-control"
+                      name="name"
                       id="name"
                       placeholder="Enter Name"
                     />
@@ -123,6 +124,7 @@
                     <input
                       type="email"
                       class="form-control"
+                      name="email"
                       id="email"
                       placeholder="Enter email"
                     />
@@ -132,6 +134,7 @@
                     <input
                       type="text"
                       class="form-control"
+                      name="phone"
                       id="phone"
                       placeholder="Enter phone number"
                     />
@@ -141,6 +144,7 @@
                     <input
                       type="password"
                       class="form-control"
+                      name="password"
                       id="password"
                       placeholder="Password"
                     />
@@ -150,6 +154,7 @@
                     <input
                       type="password"
                       class="form-control"
+                      name="cPassword"
                       id="confirm-password"
                       placeholder="Confirm Password"
                     />

@@ -1,3 +1,5 @@
+const user = require("../../models/userSchema");
+
 const pageNotFound = async (req,res) => {
     try {
         res.render("pageNotFound")
@@ -22,8 +24,23 @@ const loadSignup = async (req,res) => {
         res.status(500).send("server error");
     }
 }
+const signup = async (req,res) => {
+    const{name,email,phone,password}=req.body;
+    try {
+       const newUser = new user({name,email,phone,password});
+       console.log(newUser);
+       
+       await newUser.save();
+       return res.redirect('/signup')
+    } catch (error) {
+        console.error("Error for save user");
+        res.status(500).send("Internal server error");
+        
+    }
+}
 module.exports={
     loadHome,
     pageNotFound,
-    loadSignup
+    loadSignup,
+    signup
 }
