@@ -38,9 +38,19 @@ const signup = async (req,res) => {
         
     }
 }
+// const signupToHome = async (req,res) => {
+//     try {
+//         return res.render('home')
+//     } catch (error) {
+//         console.log('Home page not found');
+//         res.status(500).send('server error')
+        
+//     }
+// }
 module.exports={
     loadHome,
     pageNotFound,
     loadSignup,
-    signup
+    signup,
+    // signupToHome
 }
