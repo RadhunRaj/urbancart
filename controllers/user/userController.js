@@ -61,7 +61,7 @@ const signup = async (req,res) => {
         if(password!== cPassword){
             return res.render("signup",{message:"Password not matching"})
         }
-        const findUser = await User.findOne({email});
+        const findUser = await user.findOne({email});
         if(findUser){
             return res.render("signup",{message:"email already exists"});
         }
