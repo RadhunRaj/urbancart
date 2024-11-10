@@ -39,7 +39,6 @@ async function sendVerificationEmail(email,otp){
                 user:process.env.NODEMAILER_EMAIL,
                 pass:process.env.NODEMAILER_PASSWORD
             }
-
         })
 
         const info = await transporter.sendMail({
@@ -57,7 +56,7 @@ async function sendVerificationEmail(email,otp){
 }
 const signup = async (req,res) => {
     try {
-        const{email,password,cPassword}=req.body;
+        const{name,phone,email,password,cPassword}=req.body;
         if(password!== cPassword){
             return res.render("signup",{message:"Password not matching"})
         }
@@ -71,18 +70,16 @@ const signup = async (req,res) => {
             return res.json("email-error")
         }
         req.session.userOtp=otp;
-        req.session.userData={email,password};
+        req.session.userData={name,phone,email,password};
 
         res.render("verify-otp");
         console.log("OTP sent",otp);
         
     } catch (error) {
         console.error("signup error",error);
-        res.redirect("/pageNotFound");
-        
+        res.redirect("/pageNotFound");  
     }
 }
-
 module.exports={
     loadHome,
     pageNotFound,
