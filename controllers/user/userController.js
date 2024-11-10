@@ -2,9 +2,10 @@ const user = require("../../models/userSchema");
 const env = require("dotenv").config();
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt")
+
 const pageNotFound = async (req,res) => {
     try {
-        res.render("pageNotFound")
+        res.render("page-404")
     } catch (error) {
         res.redirect("/pageNotFound");
     }
@@ -135,6 +136,39 @@ const resendOtp = async (req,res)=>{
         res.status(500).json({succes:false,message:"Internal server error"});
         
     }
+};
+const loadLogin = async(req,res)=>{
+    try {
+        if(!req.session.user){
+            return res.render('login');
+        }else{
+            res.redirect('/')
+        }
+    } catch (error) {
+        res.redirect('/pageNotFound')
+    }
+}
+const login = async (req,res)=>{
+    try {
+        const {email,password}=req.body;
+        const findUser = await user.findOne({isAdmin:0,email:email});
+        if(!findUser){
+            return res.render('login',{message:'user not found'})
+        }
+        if(findUser.isBlocked){
+            return res.render("login",{message:'user is blocked'})
+        }
+        const passwordMatch = await bcrypt.compare((password,findUser.password));
+        if(!passwordMatch){
+            return res.render("login",{message:"Incorrect Password"})
+        }
+        req.session.user=findUser._id;
+        res.redirect("/")
+    } catch (error) {
+        console.error("login error",error);
+        res.render("login",{message:'login failed,Try again'});
+        
+    }
 }
 module.exports={
     loadHome,
@@ -143,4 +177,6 @@ module.exports={
     signup,
     verifyOtp,
     resendOtp,
+    loadLogin,
+    login,
 }
