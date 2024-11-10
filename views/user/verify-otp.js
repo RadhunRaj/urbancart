@@ -19,7 +19,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"/>
     <style>
-        body, html {
+        body, 
+        html {
             height: 100%;
             margin: 0;
             font-family: "Nunito Sans", sans-serif;
@@ -129,7 +130,7 @@
                     <div id="otpTimer" class="otp-timer">
                         <span id="timerValue">60</span>
                     </div>
-                    <button type="button" class="btn btn-secondary">Resend OTP</button>
+                    <button type="button" class="btn btn-secondary" onclick="resendOTP()">Resend OTP</button>
                 </div>
                 <% if (locals.message && message.length > 0) { %>
                 <div class="alert alert-danger"><%= message %></div>
@@ -189,9 +190,37 @@ function validateOTPForm(){
         error:function(){
             Swal.fire({
                 icon:"error",
-                title:"invalid OTP"
+                title:"invalid OTP",
                 text : "Try again"
             })
+        }
+    })
+    return false
+}
+function resendOTP(){
+    clearInterval(timerInterval);
+    timer=60;
+    document.getElementById("otp").disabled=false;
+    document.getElementById("timervalue").classList.remove("expired");
+    startTimer();
+    $.ajax({
+        type:"POST",
+        url:"Resend OTP",
+        success: function(response){
+            if(response.success){
+                Swal.fire({
+                    icon:"success",
+                    title:"OTP send successfully",
+                    showConfirmButton:false,
+                    timer:1500,
+                })
+            }else{
+                Swal.fire({
+                    icon:"error",
+                    title:"Error",
+                    text:"error occured while resending OTP,Try again",
+                })
+            }
         }
     })
     return false

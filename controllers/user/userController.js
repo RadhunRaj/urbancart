@@ -1,6 +1,7 @@
 const user = require("../../models/userSchema");
 const env = require("dotenv").config();
 const nodemailer = require("nodemailer");
+const bcrypt = require("bcrypt")
 const pageNotFound = async (req,res) => {
     try {
         res.render("pageNotFound")
@@ -80,9 +81,66 @@ const signup = async (req,res) => {
         res.redirect("/pageNotFound");  
     }
 }
+const securePassword = async (password)=>{
+    try {
+        const passwordHash = await bcrypt.hash(password,10)
+        return passwordHash;
+    } catch (error) {
+        
+    }
+}
+const verifyOtp = async (req,res)=>{
+    try {
+        const {otp} = req.body;
+        console.log(otp);
+        if(otp===req.session.userOtp){
+            const user = req.session.userData;
+            const passwordHash = await securePassword(user.password);
+            const saveUserData = new User({
+                name : user.name,
+                email: user.email,
+                phone: user.phone,
+                password:passwordHash,
+            })
+            await saveUserData.save();
+            req.session.user = saveUserData._id;
+            res.json({success:true, redirectUrl:"/"})
+        }else{
+            res.status(400).json({success:false,message:"invalid OTP, Try again"})
+        }
+        
+    } catch (error) {
+        console.error("error verfiying OTP",error);
+        res.status(500).json({succes:false,message:"error occured"})
+        
+    }
+}
+const resendOtp = async (req,res)=>{
+    try {
+        const {email}=req.session.userData;
+        if(!email){
+            return res.status(400).json({success:false,message:"Email not found"})
+        }
+        const otp = generateOtp();
+        req.session.userOtp = otp;
+        const emailSent = await sendVerificationEmail(email,otp);
+        if (emailSent){
+            console.log("Resend OTP:",otp);
+            res.status(200).json({succes:true,message:"OTP resend successfully"})
+        }else{
+            res.status(500).json({succes:false,message:"Failed to resend OTP, Try again"})
+        }
+    } catch (error) {
+        console.error("error resending OTP",error);
+        res.status(500).json({succes:false,message:"Internal server error"});
+        
+    }
+}
 module.exports={
     loadHome,
     pageNotFound,
     loadSignup,
     signup,
+    verifyOtp,
+    resendOtp,
 }
