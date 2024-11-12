@@ -12,6 +12,13 @@ const pageNotFound = async (req,res) => {
 }
 const loadHome = async (req,res) => {
     try {
+        const user = req.session.user;
+        if(user){
+            const userData = await User.findOne({_id:user._id});
+            res.render("home",{user:userData})
+        }else{
+            return res.render("home");
+        }
         return res.render('home')
     } catch (error) {
         console.log('Home page not found');
@@ -170,6 +177,20 @@ const login = async (req,res)=>{
         
     }
 }
+const logout = async (req,res)=>{
+    try {
+        req.session.destroy((err)=>{
+        if(err){
+            console.log("Session destruction error",err.message);
+            return res.direct("/pageNotFound")
+        }
+        return res.redirect("/login")
+        })
+    } catch (error) {
+        console.log("Logout error",error);
+        res.redirect("/pageNotFound") 
+    }
+}
 module.exports={
     loadHome,
     pageNotFound,
@@ -179,4 +200,5 @@ module.exports={
     resendOtp,
     loadLogin,
     login,
+    logout,
 }
