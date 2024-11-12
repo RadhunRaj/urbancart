@@ -8,7 +8,7 @@ router.get("/",userController.loadHome)
 router.get("/signup",userController.loadSignup);
 router.post('/signup',userController.signup);
 router.post("/verify_otp",userController.verifyOtp);
-router.post("/resnd-otp",userController.resendOtp);
+router.post("/resend-otp",userController.resendOtp);
 
 router.get("/auth/google",passport.authenticate('google',{scope:['profile','email']}));
 router.get("/auth/google/callback",passport.authenticate('google',{failureRedirect:'/signup'}),(req,res)=>{
@@ -17,4 +17,5 @@ router.get("/auth/google/callback",passport.authenticate('google',{failureRedire
 router.get('/login',userController.loadLogin);
 router.post("/login",userController.login);
 router.get("/logout",userController.logout);
+
 module.exports = router;
