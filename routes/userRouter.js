@@ -7,7 +7,7 @@ router.get("/pageNotFound",userController.pageNotFound);
 router.get("/",userController.loadHome)
 router.get("/signup",userController.loadSignup);
 router.post('/signup',userController.signup);
-router.post("/verify-otp",userController.verifyOtp);
+router.post("/verify_otp",userController.verifyOtp);
 router.post("/resnd-otp",userController.resendOtp);
 
 router.get("/auth/google",passport.authenticate('google',{scope:['profile','email']}));
