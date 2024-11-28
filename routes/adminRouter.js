@@ -4,6 +4,7 @@ const adminController = require("../controllers/admin/adminController");
 const customerController = require("../controllers/admin/customerController");
 const categoryController = require("../controllers/admin/categoryController");
 const brandController = require("../controllers/admin/brandController");
+const productController = require("../controllers/admin/productController");
 const {userAuth,adminAuth} = require("../middlewares/auth");
 const multer = require("multer");
 const storage = require("../heplers/multer");
@@ -31,4 +32,9 @@ router.post("/editCategory/:id",adminAuth.categoryController.editCategory);
 // Brand Manage
 router.get("/brands".adminAuth,brandController.getBrandPage);
 router.post("/addBrand",adminAuth,uploads.single("image"),brandController.addBrand);
+router.get("/blockBrand",adminAuth,brandController.blockBrand);
+router.get("/unBlockBrand",adminAuth,brandController.unBlockBrand);
+router.get("/deleteBrand",adminAuth,brandController.deleteBrand);
+// Product Manage
+router.get("/addProducts",adminAuth,productController.getProductAddPage)
 module.exports = router;
