@@ -1,6 +1,4 @@
 const category = require("../../models/categorySchema");
-const category = require("../../models/categorySchema");
-const category = require("../../models/categorySchema");
 const product = require("../../models/productSchema");
 
 const categoryInfo = async (req,res)=>{

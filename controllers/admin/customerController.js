@@ -52,7 +52,7 @@ const customerunBlocked = async(req,res)=>{
         res.redirect("/pageerror");
     }
 }
-modules.exports = {
+module.exports = {
     customerInfo,
     customerBlocked,
     customerunBlocked,
