@@ -1,20 +1,20 @@
 const passport  = require("passport")
-const googleStrategy = require("passport-google-oauth20").Strategy;
-const user = require("../models/userSchema");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const User = require("../models/userSchema");
 const env = require("dotenv").config();
 
-passport.use(new googleStrategy({
+passport.use(new GoogleStrategy({
     clientID:process.env.GOOGLE_CLIENT_ID,
     clientSecret:process.env.GOOGLE_CLIENT_SECRET,
     callbackURL:"/auth/google/callback"
 },
 async (accessToken,refreshToken,profile,done)=>{
     try {
-        let user = await user.findOne({googleid:profile.id});
+        let user = await User.findOne({googleid:profile.id});
         if(user){
             return done(null,user);
         }else{
-            user = new user({
+            user = new User({
                 name:profile.displayName,
                 email:profile.emails[0].value,
                 googleId:profile.id,
@@ -23,7 +23,7 @@ async (accessToken,refreshToken,profile,done)=>{
             return done(null,user)
         }
     } catch (error) {
-        return done(err,null)
+        return done(error,null)
     }
 }
 ));
@@ -32,7 +32,7 @@ passport.serializeUser((user,done)=>{
 done(null,user.id)
 });
 passport.deserializeUser((id,done)=>{
-user.findById(id)
+User.findById(id)
 .then(user=>{
     done(null,user)
 })

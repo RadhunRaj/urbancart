@@ -18,8 +18,40 @@
     <link rel="stylesheet" href="/css/aos.css">
 
     <link rel="stylesheet" href="/css/style.css">
-    
+    <style>
+      .dropdown{
+        position: relative;
+        display: inline-block;
+      }
+      .dropdown-content{
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0,2);
+        z-index: 1000;
+        right: 0;
+      }
+      .dropdown-content a{
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+      }
+      .dropdown-content a:hover{
+        background-color: white;
+      }
+      .dropdown:hover .dropdown-content{
+        display: block;
+      }
+      .header{
+        position: relative;
+        z-index: 500;
+      }
+    </style>
   </head>
+  
   <body>
   
   <div class="site-wrap">
@@ -46,11 +78,12 @@
           <div class="main-nav d-none d-lg-block">
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li class="has-children active">
-                  <a href="/">Home</a>
-                </li>
+                <!-- <li class="has-children active"> -->
+                  <a href="/" style = "margin-right: 20rem;" >HOME</a>
+                <!-- </li> -->
                 
-                <li><%if(locals.user){%>
+                
+                  <%if(locals.user){%>
                   <div class="dropdown">
                     <a href="#" class="sign-in-link"><%=locals.user.name%></a>
                     <div class="dropdown-content">
@@ -58,7 +91,7 @@
                       <a href="/logout">Logout</a>
                     </div>
                   </div>
-                <%}else{%></li>
+                <%}else{%>
 
                 <li><a href="/signup">Sign Up</a></li>
                 <li><a href="/login">Log in</a></li>

@@ -1,4 +1,4 @@
-const user = require("../../models/userSchema");
+const User = require("../../models/userSchema");
 const env = require("dotenv").config();
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt")
@@ -10,20 +10,18 @@ const pageNotFound = async (req,res) => {
         res.redirect("/pageNotFound");
     }
 }
-const loadHome = async (req,res) => {
+const loadHomePage = async (req,res) => {
     try {
-        const user = req.session.user;
+        const user = req.session.user||req.user;
         if(user){
-            const userData = await User.findOne({_id:user._id});
+            const userData = await User.findOne({_id:user});
             res.render("home",{user:userData})
         }else{
             return res.render("home");
         }
-        return res.render('home')
     } catch (error) {
-        console.log('Home page not found');
+        console.log('Home page not found:',error);
         res.status(500).send('server error')
-        
     }
 }
 const loadSignup = async (req,res) => {
@@ -69,7 +67,7 @@ const signup = async (req,res) => {
         if(password!== cPassword){
             return res.render("signup",{message:"Password not matching"})
         }
-        const findUser = await user.findOne({email});
+        const findUser = await User.findOne({email});
         if(findUser){
             return res.render("signup",{message:"email already exists"});
         }
@@ -115,8 +113,7 @@ const verifyOtp = async (req,res)=>{
             res.json({success:true, redirectUrl:"/"})
         }else{
             res.status(400).json({success:false,message:"invalid OTP, Try again"})
-        }
-        
+        }  
     } catch (error) {
         console.error("error verfiying OTP",error);
         res.status(500).json({succes:false,message:"error occured"})
@@ -140,8 +137,7 @@ const resendOtp = async (req,res)=>{
         }
     } catch (error) {
         console.error("error resending OTP",error);
-        res.status(500).json({succes:false,message:"Internal server error"});
-        
+        res.status(500).json({succes:false,message:"Internal server error"}); 
     }
 };
 const loadLogin = async(req,res)=>{
@@ -158,14 +154,14 @@ const loadLogin = async(req,res)=>{
 const login = async (req,res)=>{
     try {
         const {email,password}=req.body;
-        const findUser = await user.findOne({isAdmin:0,email:email});
+        const findUser = await User.findOne({isAdmin:0,email:email});
         if(!findUser){
-            return res.render('login',{message:'user not found'})
+            return res.render('login',{message:'User not found'})
         }
         if(findUser.isBlocked){
-            return res.render("login",{message:'user is blocked'})
+            return res.render("login",{message:'User is blocked'})
         }
-        const passwordMatch = await bcrypt.compare((password,findUser.password));
+        const passwordMatch = await bcrypt.compare(password, findUser.password);
         if(!passwordMatch){
             return res.render("login",{message:"Incorrect Password"})
         }
@@ -173,7 +169,7 @@ const login = async (req,res)=>{
         res.redirect("/")
     } catch (error) {
         console.error("login error",error);
-        res.render("login",{message:'login failed,Try again'});
+        res.render("login",{message:'Login failed,Try again'});
         
     }
 }
@@ -192,12 +188,13 @@ const logout = async (req,res)=>{
     }
 }
 module.exports={
-    loadHome,
+    loadHomePage,
     pageNotFound,
     loadSignup,
     signup,
     verifyOtp,
     resendOtp,
+
     loadLogin,
     login,
     logout,

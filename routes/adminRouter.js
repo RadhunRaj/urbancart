@@ -15,7 +15,7 @@ router.get("/pageerror",adminController.pageerror)
 // Login & Logout
 router.get("/login",adminController.loadLogin);
 router.post("/login",adminController.login);
-router.get("/",adminAuth,adminController.loadDashboard);
+router.get("/dashboard",adminAuth,adminController.loadDashboard);
 router.get("/logout",adminController.logout);
 router.get("/users",adminAuth,customerController.customerInfo);
 router.get("/blockCustomer",adminAuth,customerController.customerBlocked);
@@ -45,6 +45,6 @@ router.get("/blockProduct",adminAuth,productController.blockProduct);
 router.get("/unblockProduct",adminAuth,productController.unblockProduct);
 router.get("/editProduct",adminAuth,productController.getEditProduct);
 router.post("/editProduct/:id",adminAuth,uploads.array("images",4),productController.editProduct);
-router.post("/deleteImage",adminAuth.productController.deleteSingleImage)
+router.post("/deleteImage",adminAuth,productController.deleteSingleImage);
 
 module.exports = router;

@@ -6,7 +6,6 @@ const sharp = require("sharp");
 const fs = require("fs");
 const path = require("path");
 const category = require("../../models/categorySchema");
-const products = require("../../models/productSchema");
 
 const getProductAddPage = async(req,res)=>{
     try {
