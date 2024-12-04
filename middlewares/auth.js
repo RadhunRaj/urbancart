@@ -1,8 +1,6 @@
 const user = require("../models/userSchema");
 const userAuth = (req,res,next)=>{
-    const userId = req.session.user || req.user;
-    console.log("userId",userId);
-    
+    const userId = req.session.user || req.user;   
     if(userId){
         user.findById(userId)
         .then(data=>{
