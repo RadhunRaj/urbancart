@@ -75,7 +75,7 @@
       </div>
     </div>
     <header class="card-header text-center mb-20">
-      <form action="/admin/category" method="get" class="d-inline">
+      <form action="/admin/category/" method="get" class="d-inline">
         <div class="input-group input-group-sm border border-1 border-grey rounded-pill" style="width: 500px; margin-left: 230px">
           <input type="text" class="form-control border-0 rounded-pill mt-3" placeholder="Search categories" name="search"/>
           <button class="btn" type="submit">Search</button>
@@ -86,7 +86,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-3">
-            <form method="post" action="/admin/addCategory" onsubmit="return handleFormSubmit(event)">
+            <form method="post" action="/admin/addCategory/" onsubmit="return handleFormSubmit(event)">
               <div class="mb-4">
                 <label for="product_name" class="form-label">Name</label>
                 <input type="text" name="name" placeholder="Type here" class="form-control" id="product_name" required/>
@@ -216,7 +216,7 @@
             location.reload();
         })
         .catch(error=>{
-            if(error.message==="category already exists"){
+            if(error.message==="Category already exists"){
                 Swal.fire({
                     icon:"error",
                     title:"Oops",
@@ -241,7 +241,7 @@
             displayErrorMessage("name-error","Please enter a name");
             isValid = false
         }else if(!/^[a-zA-Z\s]+$/.test(name)){
-            displayErrorMessage("name-error","Category should contain only characters");
+            displayErrorMessage("name-error","Category name should contain only characters");
             isValid = false;
         }
         if(description===""){
@@ -269,10 +269,10 @@
             input:"number",
             inputLabel:"Percentage",
             inputPlaceholder:"%",
-        })
+        });
         if(amount){
             try {
-                const response = await fetch("/admin/addCategoryOffer",{
+                const response = await fetch("/admin/addCategoryOffer" , {
                     method:"POST",
                     headers:{
                         'content-type':"application/json",
@@ -334,8 +334,7 @@
                 "An error occured while removing the offer",
                 "error"
             );
-            console.error("Error removing offer",error);
-            
+            console.error("Error removing offer",error);  
         }
     }
   </script>

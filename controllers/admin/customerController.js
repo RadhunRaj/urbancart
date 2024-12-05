@@ -11,7 +11,7 @@ const customerInfo = async (req,res)=>{
             page=req.query.page
         }
         const limit = 3;
-        const data = await User.find({
+        const userData = await User.find({
             isAdmin:false,
             $or:[
                 {name:{$regex:".*"+search+".*"}},
@@ -29,9 +29,13 @@ const customerInfo = async (req,res)=>{
                 {email:{$regex:".*"+search+".*"}},
             ],
         }).countDocuments();
-        res.render("customers")
+        res.render("customers",{
+            data:userData,
+            totalPages:Math.ceil(count/limit),
+            currentPage:page
+        })
     } catch (error) {
-        
+        res.redirect("/pageerror");
     }
 }
 const customerBlocked = async (req,res)=>{
@@ -40,7 +44,7 @@ const customerBlocked = async (req,res)=>{
         await User.updateOne({_id:id},{$set:{isBlocked:true}});
         res.redirect("/admin/users");
     } catch (error) {
-        res.direct("/pageerror")
+        res.redirect("/pageerror")
     }
 }
 const customerunBlocked = async(req,res)=>{
