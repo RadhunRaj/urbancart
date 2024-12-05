@@ -212,12 +212,12 @@
         function viewImage4(event){
             document.getElementById("imgView4").src = URL.createObjectURL(event.target.files[0])
         }
-        function viewImage(event,index){
+         function viewImage(event, index){
             let input = event.target;
             let reader = new FileReader();
             reader.onload = function(){
                 let dataURL = reader.result;
-                let image = document.getElementById("imgview"+index);
+                let image = document.getElementById("imgview"+ index);
                 image.src = dataURL;
                 let cropper = new Cropper(image,{
                     aspectRatio:1,
@@ -253,6 +253,7 @@
         }
         const selectedImages = [];
         document.getElementById("input1").addEventListener("change".handleFileSelect);
+         
 
         function handleFileSelect(event){
             const addedImagesContainer = document.getElementById("addedImagesContainer");

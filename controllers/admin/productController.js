@@ -5,7 +5,6 @@ const User = require("../../models/userSchema");
 const sharp = require("sharp");
 const fs = require("fs");
 const path = require("path");
-const category = require("../../models/categorySchema");
 
 const getProductAddPage = async(req,res)=>{
     try {
@@ -35,7 +34,7 @@ const addProducts = async (req,res)=>{
                     images.push(req.files[i].filename);
                 }
             }
-            const categoryId = await category.findOne({name:products.category});
+            const categoryId = await Category.findOne({name:products.category});
             if(!categoryId){
                 return res.status(400).join("Invalid category name")
             }
