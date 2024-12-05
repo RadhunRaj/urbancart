@@ -1,4 +1,4 @@
-const user = require("../../models/userSchema");
+const User = require("../../models/userSchema");
 
 const customerInfo = async (req,res)=>{
     try {
@@ -11,7 +11,7 @@ const customerInfo = async (req,res)=>{
             page=req.query.page
         }
         const limit = 3;
-        const userData = await user.find({
+        const data = await User.find({
             isAdmin:false,
             $or:[
                 {name:{$regex:".*"+search+".*"}},
@@ -22,7 +22,7 @@ const customerInfo = async (req,res)=>{
         .skip((page-1)*limit)
         .exec();
 
-        const count = await user.find({
+        const count = await User.find({
             isAdmin:false,
             $or:[
                 {name:{$regex:".*"+search+".*"}},
@@ -37,7 +37,7 @@ const customerInfo = async (req,res)=>{
 const customerBlocked = async (req,res)=>{
     try {
         let id=req.query.id;
-        await user.updateOne({_id:id},{$set:{isBlocked:true}});
+        await User.updateOne({_id:id},{$set:{isBlocked:true}});
         res.redirect("/admin/users");
     } catch (error) {
         res.direct("/pageerror")
@@ -46,7 +46,7 @@ const customerBlocked = async (req,res)=>{
 const customerunBlocked = async(req,res)=>{
     try {
         let id = req.query.id;
-        await user.updateOne({_id:id},{$set:{isBlocked:false}})
+        await User.updateOne({_id:id},{$set:{isBlocked:false}})
         res.redirect("/admin/users");
     } catch (error) {
         res.redirect("/pageerror");
