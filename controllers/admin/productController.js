@@ -18,50 +18,108 @@ const getProductAddPage = async(req,res)=>{
         res.redirect("/pageerror");
     }
 }
-const addProducts = async (req,res)=>{
+
+const addProducts = async (req, res) => {
     try {
         const products = req.body;
-        const productExists = await Product.findOne({
-            productName:products.productName,
-        });
-        if(!productExists){
-            const images = [];
-            if(req.files && req.files.length>0){
-                for(let i=0;i<req.files.length;i++){
-                    const originalImagePath = req.files[i].path;
-                    const resizedImagePath = path.join('public','uploads','product-images',req.files[i].filename);
-                    await sharp (originalImagePath).resize({width:440,height:440}).toFile(resizedImagePath);
-                    images.push(req.files[i].filename);
+        const productExists = await Product.findOne({ productName: products.productName });
+        
+        if (productExists) {
+            return res.status(400).json("Product already exists, please try with another name");
+        } else {
+            let images = [];
+            
+            if (req.files) {
+                for (let field of ['images1', 'images2', 'images3']) {
+                    if (req.files[field] && req.files[field].length > 0) {
+                        let originalImagePath = req.files[field][0].path;
+
+                        const originalDir = path.dirname(originalImagePath);
+                        if (!fs.existsSync(originalDir)) {
+                            fs.mkdirSync(originalDir, { recursive: true });
+                        }
+
+                        let resizedImagePath = path.join('public', 'uploads', 'product-images', `${Date.now()}-${req.files[field][0].filename}`);
+                        
+                        const directory = path.dirname(resizedImagePath);
+                        if (!fs.existsSync(directory)) {
+                            fs.mkdirSync(directory, { recursive: true });
+                        }
+                        
+                        await sharp(originalImagePath)
+                            .resize({ width: 440, height: 440 })
+                            .toFile(resizedImagePath);
+                        
+                        images.push(req.files[field][0].filename);
+                        
+                      
+                        try {
+                            fs.unlinkSync(originalImagePath);
+                        } catch (unlinkError) {
+                            console.error('Error deleting original file:', unlinkError);
+                        }
+                    }
                 }
             }
-            const categoryId = await Category.findOne({name:products.category});
-            if(!categoryId){
-                return res.status(400).join("Invalid category name")
+
+            // const brandId = await Brand.findById(products.brand);
+            // if (!brandId) {
+            //     return res.status(400).json("Invalid brand ID");
+            // }
+            
+            const categoryId = await Category.findOne({ name: products.category });
+            
+            if (!categoryId) {
+                return res.status(400).json("Invalid category name");
             }
+            
+            let productStatus = products.quantity > 0 ? "Available" : "Out of stock";
+
+        
+            // const offer = await Offer.findOne({ product: categoryId._id });
+            // let offerPrice = products.salePrice;
+            
+            // if (offer) {
+            //     let offerValue;
+                
+            //     if (offer.discountType === 'percentage') {
+            //         offerValue = products.salePrice * (offer.discountValue / 100);
+            //     } else {
+            //         offerValue = offer.discountValue;
+            //     }
+                
+            //     offerPrice = products.salePrice - offerValue;
+            //     offerPrice = Math.max(offerPrice, 0); 
+            // }
+
+          
+            
             const newProduct = new Product({
-                productName:products.productName,
-                description:products.description,
-                brand:products.brand,
-                category:categoryId._id,
-                regularPrice:products.regularPrice,
-                salePrice:products.salePrice,
-                createdOn:new Date(),
-                quantity:products.quantity,
-                size:products.size,
-                color:products.color,
-                productImage:images,
-                status:'Available',
+                productName: products.productName,
+                description: products.description,
+                category: categoryId._id,
+                regularPrice: products.regularPrice,
+                salePrice: products.salePrice,
+                createdOn: new Date(),
+                quantity: products.quantity,
+                size: products.size,
+                color: products.color,
+                productImage: images,
+                status: productStatus,
             });
+            
             await newProduct.save();
+
+            
+
             return res.redirect("/admin/addProducts");
-        }else{
-            return res.status(400).json("Product already exist, Try another Name");
         }
     } catch (error) {
-        console.error("Error saving product",error);
-        return res.redirect("/admin/pageerror")  
+        console.error("Error Saving product", error);
+        return res.redirect("/admin/pageerror");
     }
-}
+};
+
 const getAllProducts = async (req,res)=>{
     try {
         const search = req.query.search || "";

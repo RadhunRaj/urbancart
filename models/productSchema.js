@@ -13,7 +13,7 @@ const productSchema = new Schema({
     },
     brand:{
         type:String,
-        required:true
+        required:false
     },
     category:{
         type:Schema.Types.ObjectId,
@@ -35,6 +35,10 @@ const productSchema = new Schema({
     quantity:{
         type:Number,
         default:true
+    },
+    size:{
+        type:String,
+        required:false
     },
     color:{
         type:String,
