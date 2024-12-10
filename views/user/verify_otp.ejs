@@ -25,6 +25,7 @@
             margin: 0;
             font-family: "Nunito Sans", sans-serif;
             overflow: hidden;
+            background-color: #ee4266;
         }
         .container {
             display: flex;
@@ -51,20 +52,21 @@
         .form-group {
             margin-bottom: 15px;
         }
+    
         .otp-timer {
-            display: inline-block;
-            margin-left: 10px;
-            font-size: 14px;
-            position: relative;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            line-height: 60px;
-            text-align: center;
-            background: #f2f2f2;
-            border: 2px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 13px; /* Slightly larger font size for better readability */
+    font-weight: bold; /* Makes the timer text prominent */
+    position: relative;
+    width: 30px; /* Slightly larger for better visibility */
+    height: 40px;
+    border-radius: 50%;
+    line-height: 70px;
+    text-align: center;
+    color: #333; /* Text color */
+    transition: all 0.3s ease; /* Smooth hover effect */
+}
         #timerValue {
             display: block;
             font-size: 24px;

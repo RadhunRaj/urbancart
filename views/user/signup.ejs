@@ -24,6 +24,9 @@
       rel="stylesheet"
     />
     <style>
+      body{
+        background-color: #ee4266;
+      }
       .header__nav__option .sign-in-link {
         font-size: 16px;
         color: #333;
@@ -91,7 +94,7 @@
         font-size: 1.25rem; /* Decrease card title size */
       }
       .signup-image .sign-in-link {
-        color: #333;
+        color: #e01616;
         text-decoration: none;
       }
       .signup-image .sign-in-link:hover {
@@ -128,7 +131,7 @@
                       id="name"
                       placeholder="Enter Name"
                     />
-                    <div id="error1" class="error-message"></div>
+                    <div id="error1" class="error-message" style="color: #e01616;"></div>
                   </div>
                   <div class="form-group">
                     <label for="email">Email address</label>
@@ -139,7 +142,7 @@
                       id="email"
                       placeholder="Enter email"
                     />
-                    <div id="error2" class="error-message"></div>
+                    <div id="error2" class="error-message" style="color: #e01616;"></div>
                   </div>
                   <div class="form-group">
                     <label for="phone">Phone Number</label>
@@ -150,7 +153,7 @@
                       id="phone"
                       placeholder="Enter phone number"
                     />
-                    <div id="error3" class="error-message"></div>
+                    <div id="error3" class="error-message" style="color: #e01616;"></div>
                   </div>
                   <div class="form-group">
                     <label for="password">Password</label>
@@ -161,7 +164,7 @@
                       id="password"
                       placeholder="Password"
                     />
-                    <div id="error4" class="error-message"></div>
+                    <div id="error4" class="error-message" style="color: #e01616;"></div>
                   </div>
                   <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
@@ -172,7 +175,7 @@
                       id="confirm-password"
                       placeholder="Confirm Password"
                     />
-                    <div id="error5" class="error-message"></div>
+                    <div id="error5" class="error-message" style="color: #e01616;"></div>
                   </div>
                   <%if(locals.message && message.length>0){%>
                     <div class="alert alert-danger text-center">
@@ -186,7 +189,7 @@
                       Sign Up
                     </button>
                     <div class="mt-2px">
-                      <p>or sign up with</p>
+                      
                     </div>
                     <div class="social-btns">
                       <a href="/auth/google" class="btn btn-outline-danger">
@@ -250,7 +253,7 @@ const emailval = emailid.value;
 const emailpattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 if(!emailpattern.test(emailval)){
   error2.style.display="block";
-  error2.innerHTML="invalid format"
+  error2.innerHTML="Enter a valid ID"
 }else{
   error2.style.display="none";
   error2.innerHTML="";

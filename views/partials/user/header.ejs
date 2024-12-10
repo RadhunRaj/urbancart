@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>URBANCART</title>
@@ -78,11 +78,14 @@
           <div class="main-nav d-none d-lg-block">
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <!-- <li class="has-children active"> -->
-                  <a href="/" style = "margin-right: 20rem;" >HOME</a>
+                <li class="has-children active"> -->
+                  <!-- <a href="/" style = "margin-right: 20rem;" >HOME</a>
+                  <a href="#" style = "margin-right: 20rem;" >SHOP</a>
+                  <a href="#" style = "margin-right: 20rem;" >ABOUT US</a>
+                  -->
                 <!-- </li> -->
                 
-                
+<!--                 
                   <%if(locals.user){%>
                   <div class="dropdown">
                     <a href="#" class="sign-in-link"><%=locals.user.name%></a>
@@ -111,4 +114,167 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <title>URBANCART</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+        <link rel="stylesheet" href="fonts/icomoon/style.css">
+    
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/magnific-popup.css">
+        <link rel="stylesheet" href="/css/jquery-ui.css">
+        <link rel="stylesheet" href="/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    
+    
+        <link rel="stylesheet" href="/css/aos.css">
+    
+        <link rel="stylesheet" href="/css/style.css">
+        <style>
+          .dropdown {
+            position: relative;
+            display: inline-block;
+          }
+          .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            right: 0;
+          }
+          .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+          }
+          .dropdown-content a:hover {
+            background-color: #f1f1f1;
+          }
+          .dropdown:hover .dropdown-content {
+            display: block;
+          }
+    
+          .site-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+    
+          .main-nav {
+            flex: 1;
+            text-align: center;
+          }
+    
+          .main-nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+          }
+    
+          .main-nav a {
+            text-decoration: none;
+            color: black;
+          }
+    
+          .icons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+          }
+    
+          .user-info {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+          }
+          .profile-picture {
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid #ccc;
+}
+        </style>
+      </head>
+    
+      <body>
+    
+      <div class="site-wrap">
+    
+        <div class="site-navbar bg-white py-2">
+          <div class="container">
+            <div class="d-flex align-items-center justify-content-between w-100">
+              <!-- Logo -->
+              <div class="logo">
+                <div class="site-logo">
+                  <a href="/" class="js-logo-clone">URBANCART</a>
+                </div>
+              </div>
+    
+              <!-- Navigation -->
+              <div class="main-nav d-none d-lg-block">
+                <nav class="site-navigation" role="navigation">
+                  <ul class="site-menu js-clone-nav">
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="#">SHOP</a></li>
+                    <li><a href="#">ABOUT US</a></li>
+                  </ul>
+                </nav>
+              </div>
+    
+              <!-- User and Icons -->
+              <div class="user-info d-flex align-items-center">
+                <div class="icons">
+                  <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+                  <a href="#" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
+                  <a href="cart.html" class="icons-btn d-inline-block bag">
+                    <span class="icon-shopping-bag"></span>
+                    <span class="number"></span>
+                  </a>
+                  <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
+                </div>
+                <% if (locals.user) { %>
+                <div class="dropdown">
+                
+                    <a href="#" class="sign-in-link">
+                      <!-- Profile Picture -->
+                      <img 
+                          src="images/avatar.jpg" 
+                          alt="Profile Picture" 
+                          class="profile-picture">
+                  </a>
+
+
+                  <a href="#" class="sign-in-link"><%= locals.user.name %></a>
+                  <div class="dropdown-content">
+                    <a href="/userProfile">Profile</a>
+                    <a href="/logout">Logout</a>
+                  </div>
+                </div>
+                <% } else { %>
+                <a href="/signup" style="margin-right: 10px;">Sign Up</a>
+                <a href="/login" style="margin-right: 10px;">Log in</a>
+                <% } %>
+    
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      </body>
+    </html>

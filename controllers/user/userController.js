@@ -25,7 +25,7 @@ const loadHomePage = async (req, res) => {
 
             if (!userData) {
                 
-                return res.status(404).send('User not found');
+                return res.status(404).send('user not found');
             }
 
            
@@ -39,7 +39,7 @@ const loadHomePage = async (req, res) => {
         console.log('Error loading home page:', error);
 
        
-        res.status(500).send('Server error');
+        res.status(500).send('Server Error');
     }
 };
 
@@ -88,7 +88,7 @@ const signup = async (req,res) => {
         }
         const findUser = await User.findOne({email});
         if(findUser){
-            return res.render("signup",{message:"email already exists"});
+            return res.render("signup",{message:"Email already exists"});
         }
         const otp = generateOtp();
         const emailSent = await sendVerificationEmail(email,otp);
@@ -175,10 +175,10 @@ const login = async (req,res)=>{
         const {email,password}=req.body;
         const findUser = await User.findOne({isAdmin:0,email:email});
         if(!findUser){
-            return res.render('login',{message:'User not found'})
+            return res.render('login',{message:'User not Found'})
         }
         if(findUser.isBlocked){
-            return res.render("login",{message:'User is blocked'})
+            return res.render("login",{message:'User is Blocked'})
         }
         const passwordMatch = await bcrypt.compare(password, findUser.password);
         if(!passwordMatch){
@@ -213,7 +213,6 @@ module.exports={
     signup,
     verifyOtp,
     resendOtp,
-
     loadLogin,
     login,
     logout,

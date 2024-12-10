@@ -9,71 +9,163 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://kit.fontawesome.com/16d4885483.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+ 
+     
     <style>
         /* Custom styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f8f9fa;
         }
+    
         .navbar {
-            background-color: #343a40;
+            background-color: #ee4266;
             color: #ffffff;
         }
+    
         .navbar-aside {
-            background-color: black;
+            background:  #ee4266;
             width: 250px;
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
             overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
         }
+    
         .navbar-aside .brand-wrap {
             padding: 20px;
             text-align: center;
-            display: block;
         }
+    
         .navbar-aside img.logo {
             max-width: 100%;
             height: auto;
+            border-radius: 10px;
         }
-        .menu-item {
-            list-style: none;
+    
+        .menu-aside {
             padding: 0;
             margin: 0;
+            list-style: none;
         }
-        .menu-item a.menu-link {
+    
+        .menu-item {
             display: block;
-            padding: 10px 20px;
-            color: #ffffff;
-            text-decoration: none;
-            transition: all 0.3s;
         }
+    
+        .menu-item a.menu-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            color: #dcdcdc;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+    
         .menu-item a.menu-link:hover,
         .menu-item a.menu-link.active {
-            background-color: #495057;
+            background: grey;
             color: #ffffff;
         }
+    
+        .menu-item a.menu-link i.material-icons {
+            font-size: 1.5rem;
+        }
+    
         .main-wrap {
             margin-left: 250px;
             padding: 20px;
             background-color: #ffffff;
             min-height: 100vh;
         }
+    
+        .navbar .btn-mobile {
+            background-color: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    
         .dropdown-menu {
             background-color: #ffffff;
             border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-shadow:whitesmoke;
         }
+    
+        .dropdown-item {
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            color: #ee4266;
+            transition: all 0.3s ease;
+        }
+    
         .dropdown-item:hover {
-            background-color: #495057;
+            background-color: black;
             color: #ffffff;
         }
+    
         .header-icons {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #ffffff;
-            margin-right: 15px;
+            margin-right: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+    
+        .header-icons:hover {
+            color: #adb5bd;
+        }
+    
+        .dropdown-toggle {
+            cursor: pointer;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+    
+        .dropdown-toggle p {
+            margin: 0;
+            font-weight: 500;
+        }
+    
+        .dropdown-menu .dropdown-item i {
+            margin-right: 10px;
+        }
+    
+        /* Add responsiveness */
+        @media (max-width: 768px) {
+            .navbar-aside {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+    
+            .main-wrap {
+                margin-left: 0;
+            }
+        }
+    
+        @media (max-width: 576px) {
+            .menu-item a.menu-link {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+    
+            .header-icons {
+                font-size: 1rem;
+                margin-right: 10px;
+            }
         }
     </style>
 </head>
@@ -81,8 +173,8 @@
     <!-- Sidebar -->
     <div class="navbar-aside">
         <div class="aside-top">
-            <a href="#" class="brand-wrap">
-                <img src="#" class="logo" alt="URBANCART">
+            <!-- <a href="/admin" class="brand-wrap"> -->
+               <!-- <STRong><h5>URBANCART</h5></STRong>  -->
             </a>
         </div>
         <nav>
