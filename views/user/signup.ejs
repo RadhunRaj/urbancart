@@ -105,6 +105,21 @@
         font-size: 0.75rem;
         display: none;
       }
+      .toggle-password1 {
+  
+  position: absolute;
+    top: 50%;
+    right: 380px;
+    transform: translateY(80px);
+}
+.toggle-password2 {
+  
+  position: absolute;
+    top: 50%;
+    right: 380px;
+    transform: translateY(170px);
+}
+
     </style>
   </head>
   
@@ -153,28 +168,28 @@
                       id="phone"
                       placeholder="Enter phone number"
                     />
+                    
                     <div id="error3" class="error-message" style="color: #e01616;"></div>
                   </div>
                   <div class="form-group">
                     <label for="password">Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      name="password"
-                      id="password"
-                      placeholder="Password"
-                    />
+                    <div class="toggle">
+                      <input type="password" class="form-control" name="password" id="password"placeholder="Password">
+                      <i class="toggle-password1" id="togglePassword1" style="cursor: pointer;">🔒</i>
+                    </div>
+                    
+                    
                     <div id="error4" class="error-message" style="color: #e01616;"></div>
+                    
                   </div>
                   <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      name="cPassword"
-                      id="confirm-password"
-                      placeholder="Confirm Password"
-                    />
+                    
+                      <label for="confirm-password">Confirm Password</label>
+                      <div class="toggle2">
+                    <input type="password" class="form-control"name="cPassword"id="confirm-password"placeholder="Confirm Password">
+                    <i class="toggle-password2" id="togglePassword2" style="cursor: pointer;">🔒</i>
+                    </div>
+                    
                     <div id="error5" class="error-message" style="color: #e01616;"></div>
                   </div>
                   <%if(locals.message && message.length>0){%>
@@ -324,6 +339,26 @@ e.preventDefault()
       }
     })
   })
+  
+
+const togglePassword1 = document.querySelector('#togglePassword1');
+const password1 = document.querySelector('#password');
+
+const togglePassword2 = document.querySelector('#togglePassword2');
+const password2 = document.querySelector('#confirm-password');
+
+togglePassword1.addEventListener('click', function () {
+    const type = password1.getAttribute('type') === 'password' ? 'text' : 'password';
+    password1.setAttribute('type', type);
+    this.textContent = type === 'password' ? '👁️' : '🔒';
+});
+
+togglePassword2.addEventListener('click', function () {
+    const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+    password2.setAttribute('type', type);
+    this.textContent = type === 'password' ? '👁️' : '🔒';
+});
+
 
 
 </script>

@@ -39,7 +39,7 @@ const addProducts = async (req, res) => {
                             fs.mkdirSync(originalDir, { recursive: true });
                         }
 
-                        let resizedImagePath = path.join('public', 'uploads', 'product-images', `${Date.now()}-${req.files[field][0].filename}`);
+                        let resizedImagePath = path.join('public', 'uploads', 'product-images', req.files[field][0].filename);
                         
                         const directory = path.dirname(resizedImagePath);
                         if (!fs.existsSync(directory)) {
