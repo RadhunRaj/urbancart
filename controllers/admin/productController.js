@@ -208,24 +208,27 @@ const unblockProduct = async (req,res)=>{
         res.redirect("/admin/pageerror");
     }
 }
-const getEditProduct = async (req,res)=>{
-   
+const getEditProduct = async (req, res) => {
     try {
         const id = req.params.id;
-      console.log(req.params.id);
-      
-        const product = await Product.findOne({_id:id});
+        console.log(id);
+
+        const product = await Product.findOne({ _id: id })
+                                      
+        console.log(product);
+
         const category = await Category.find({});
-        // const brand = await Brand.find({});
-        res.render("edit-product",{
-            product:product,
-            cat:category,
-            // brand:brand,
-        })
+
+        res.render("edit-product", {
+            product: product,
+            cat: category
+        });
     } catch (error) {
+        console.error(error);
         res.redirect("/admin/pageerror");
     }
-}
+};
+
 const editProduct = async (req,res)=>{
     try {
         const id = req.params.id;
@@ -248,7 +251,7 @@ const editProduct = async (req,res)=>{
             productName:data.productName,
             description:data.description,
             // brand:data.brand,
-            category:category._id,
+            // category:category._id,
             regularPrice:data.regularPrice,
             salePrice:data.salePrice,
             quantity:data.quantity,
