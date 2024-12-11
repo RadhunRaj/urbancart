@@ -1,19 +1,77 @@
 <%- include("../../views/partials/admin/header") %>
+<style>
+    .container {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 8px;
+    }
+
+    button.btn-primary {
+        background: linear-gradient(45deg, #4CAF50, #1976D2);
+        border: none;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+    }
+
+    button.btn-primary:hover {
+        background: linear-gradient(45deg, #1976D2, #4CAF50);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    textarea.form-control {
+        resize: none;
+        height: 150px;
+    }
+
+    .mt-60 {
+        margin-top: 60px;
+    }
+
+    .mt-30 {
+        margin-top: 30px;
+    }
+
+    .text-end {
+        text-align: right;
+    }
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 mt-60">
             <form method="post" action="/admin/editCategory/<%=category._id%>">
-                <div class="d-grid text-end mt-30 col-md-5">
-                    <button class="btn btn-primary" type="submit">Update category</button>
-                </div>
-                <div class="mb-4 mt-30">
+                <div class="mb-4">
                     <label for="product_name" class="form-label">Name</label>
-                    <input type="text" name="categoryName" value="<%=category.name%>" class="form-control border" />
+                    <input type="text" name="categoryName" value="<%=category.name%>" class="form-control" placeholder="Enter category name" />
                 </div>
-                
+
                 <div class="mb-4">
                     <label class="form-label">Description</label>
-                    <textarea name="description" class="form-control border"><%=category.description%></textarea>
+                    <textarea name="description" class="form-control" placeholder="Enter category description"><%=category.description%></textarea>
+                </div>
+
+                <div class="d-grid text-end">
+                    <button class="btn btn-primary" type="submit">Update Category</button>
                 </div>
             </form>
         </div>

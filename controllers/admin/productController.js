@@ -15,7 +15,7 @@ const getProductAddPage = async(req,res)=>{
             brand:brand
         });
     } catch (error) {
-        res.redirect("/pageerror");
+        res.redirect("/admin/pageerror");
     }
 }
 
@@ -112,7 +112,7 @@ const addProducts = async (req, res) => {
 
             
 
-            return res.redirect("/admin/addProducts");
+            return res.redirect("/admin/products");
         }
     } catch (error) {
         console.error("Error Saving product", error);
@@ -153,7 +153,7 @@ const getAllProducts = async (req,res)=>{
             res.render("page-404");
         }
     } catch (error) {
-        res.redirect("/pageerror")
+        res.redirect("/admin/pageerror")
     }
 }
 const addProductOffer = async(req,res)=>{
@@ -172,7 +172,7 @@ const addProductOffer = async(req,res)=>{
         res.json({status:true})
 
     } catch (error) {
-        res.redirect("/pageerror");
+        res.redirect("/admin/pageerror");
         res.status(500).json({status:false,message:"Internal server error"})
     }
 }
@@ -187,7 +187,7 @@ const removeProductOffer = async(req,res)=>{
         res.json({status:true})
 
     } catch (error) {
-        res.redirect("/pageerror");
+        res.redirect("/admin/pageerror");
     }
 }
 const blockProduct = async (req,res)=>{
@@ -196,7 +196,7 @@ const blockProduct = async (req,res)=>{
         await Product.updateOne({_id:id},{$set:{isBlocked:true}});
         res.redirect("/admin/products");
     } catch (error) {
-        res.redirect("/pageerror");
+        res.redirect("/admin/pageerror");
     }
 }
 const unblockProduct = async (req,res)=>{
@@ -205,28 +205,31 @@ const unblockProduct = async (req,res)=>{
         await Product.updateOne({_id:id},{$set:{isBlocked:false}});
         res.redirect("/admin/products")
     } catch (error) {
-        res.redirect("/pageerror");
+        res.redirect("/admin/pageerror");
     }
 }
 const getEditProduct = async (req,res)=>{
+   
     try {
-        const id = req.query.id;
+        const id = req.params.id;
+      console.log(req.params.id);
+      
         const product = await Product.findOne({_id:id});
         const category = await Category.find({});
-        const brand = await Brand.find({});
+        // const brand = await Brand.find({});
         res.render("edit-product",{
             product:product,
             cat:category,
-            brand:brand,
+            // brand:brand,
         })
     } catch (error) {
-        res.redirect("/pageerror");
+        res.redirect("/admin/pageerror");
     }
 }
 const editProduct = async (req,res)=>{
     try {
         const id = req.params.id;
-        const product = await Product.findOne({_id:id});
+        // const product = await Product.findOne({_id:id});
         const data = req.body;
         const existingProduct = await Product.findOne({
             productName:data.productName,
@@ -244,8 +247,8 @@ const editProduct = async (req,res)=>{
         const updateFields = {
             productName:data.productName,
             description:data.description,
-            brand:data.brand,
-            category:product.category,
+            // brand:data.brand,
+            category:category._id,
             regularPrice:data.regularPrice,
             salePrice:data.salePrice,
             quantity:data.quantity,
@@ -259,7 +262,7 @@ const editProduct = async (req,res)=>{
         res.redirect("/admin/products");
     } catch (error) {
         console.error(error);
-        res.redirect("/pageerror")
+        res.redirect("/admin/pageerror")
         
     }
 }
@@ -276,7 +279,7 @@ const deleteSingleImage = async (req,res)=>{
         }
         res.send({status:true})
     } catch (error) {
-        res.redirect("/pageerror");
+        res.redirect("/admin/pageerror");
     }
 }
 module.exports = {

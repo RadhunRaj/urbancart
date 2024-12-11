@@ -35,10 +35,8 @@
            </div>
            <div class="col-lg-6">
                <div class="card mb-4">
-
-
                    <div class="card-body">
-                       <form method="post" action="/admin/editProduct/<%=product_id%>" enctype="multipart/form-data"
+                       <form method="post" action="/admin/editProduct/<%= product._id%>" enctype="multipart/form-data"
                            onsubmit="return validateForm()">
                            <div class="mb-4">
                                <label for="product_name" class="form-label">Product Name</label>
@@ -46,7 +44,7 @@
                                    class="form-control border" id="product_name">
                                    <div id="productName-error" class="error-message"></div>
                            </div>
-                           <div class="col-lg-4 mb-4">
+                           <!-- <div class="col-lg-4 mb-4">
                                <label class="form-label">Brand</label>
                                <select class="form-select border" name="brand">
                                   <%for(let i=0;i<brand.length;i++){%>
@@ -58,7 +56,7 @@
                                <div id="brand-error" class="error-message"></div>
 
 
-                           </div>
+                           </div> -->
                            <div class="mb-4">
                                <label class="form-label">Full description</label>
                                <input name="descriptionData" value="<%=product.description%>"  class="form-control border"
@@ -135,7 +133,7 @@
                                                    <td>
                                                        <input type="hidden" value="<%=product.productImage[i]%>" id="imageDatas">
                                                        <img class="rounded" style="width: 50px; height: 60px;"
-                                                           src="/uploads/re-image/<%=product.productImage[i]%>"
+                                                           src="/uploads/product-images/<%=product.productImage[i]%>"
                                                            alt="">
                                                        <i onclick="deleteSingleImage('<%=product.productimage[i]%>','<%=product._id%>')" style="position: absolute; margin-left: .5rem; cursor: pointer;" class="fa-thin fa-x"></i>
                                                    </td>
@@ -230,7 +228,7 @@ function validateForm() {
            clearErrorMessages();
            const name = document.getElementsByName('productName')[0].value;
            const description = document.getElementsByName('descriptionData')[0].value;
-           const brand = document.getElementsByName('brand')[0].value;
+        //    const brand = document.getElementsByName('brand')[0].value;
            const price = document.getElementsByName('regularPrice')[0].value;
            const saleprice = document.getElementsByName('salePrice')[0].value;
            const color = document.getElementsByName('color')[0].value;

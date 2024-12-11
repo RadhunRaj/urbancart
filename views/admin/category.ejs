@@ -143,12 +143,13 @@
                       <%}%>
                     </td>
                     <td class="text-start">
-                        <%if(category.isListed){%>
-                      <span class="badge rounded-pill alert-success" style="width: 60px">Listed</span>
-                      <%}else{%>
-                      <span class="badge rounded-pill alert-danger" style="width: 60px">Unlisted</span>
-                      <%}%>
-                    </td>
+                      <% if (category.isListed) { %>
+                          <span class="badge rounded-pill alert-success" style="width: 60px; color: black;">Listed</span>
+                      <% } else { %>
+                          <span class="badge rounded-pill alert-danger" style="width: 60px; color: black;">Unlisted</span>
+                      <% } %>
+                  </td>
+                  
                     <td class="text-start">
                         <%if(category.isListed){%>
                       <button class="btn btn-danger" style="width: 70px">
