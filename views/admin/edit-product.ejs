@@ -118,6 +118,7 @@
                                                 <% if (i < product.productImage.length) { %>
                                                     <img class="rounded" style="width: 50px; height: 60px;" src="/uploads/product-images/<%= product.productImage[i] %>" alt="">
                                                     <button type="button" onclick="deleteSingleImage('<%= product.productImage[i] %>', '<%= product._id %>', <%= i %>)"><i class="fas fa-times"></i></button>
+                                                    
                                                 <% } else { %>
                                                     <p>No image</p>
                                                 <% } %>

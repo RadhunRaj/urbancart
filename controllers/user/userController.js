@@ -13,35 +13,32 @@ const pageNotFound = async (req,res) => {
 }
 const loadHomePage = async (req, res) => {
     try {
-       
         const user = req.session.user || req.user;
 
-       
-        const products = await Product.find().populate("category");
+        // Fetch products where `isBlocked` is false
+        const products = await Product.find({ isBlocked: false }).populate("category");
 
-       
         if (user) {
             const userData = await User.findOne({ _id: user });
 
             if (!userData) {
-                
-                return res.status(404).send('user not found');
+                return res.status(404).send('User not found');
             }
 
-           
+            // Render home page with user data and products
             return res.render("home", { user: userData, products });
         } else {
-           
+            // Render home page with only products
             return res.render("home", { products });
         }
     } catch (error) {
-        
         console.log('Error loading home page:', error);
 
-       
+        // Handle server error
         res.status(500).send('Server Error');
     }
 };
+
 
 const loadSignup = async (req,res) => {
     try {

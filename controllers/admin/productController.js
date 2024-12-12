@@ -234,12 +234,18 @@ const editProduct = async (req,res)=>{
         const id = req.params.id;
         // const product = await Product.findOne({_id:id});
         const data = req.body;
+        console.log(data);
+        
         const existingProduct = await Product.findOne({
             productName:data.productName,
             _id:{$ne:id}
         })
         if(existingProduct){
             return res.status(400).json({error:"Product name exists,Try another name"})
+        }
+        const category = await Category.findOne({ name: data.category });
+        if (!category) {
+            return res.status(400).json({ error: "Invalid category name" });
         }
         const images = [];
         if (req.files && req.files.length>0){
@@ -251,7 +257,7 @@ const editProduct = async (req,res)=>{
             productName:data.productName,
             description:data.description,
             // brand:data.brand,
-            // category:category._id,
+            category:category._id,
             regularPrice:data.regularPrice,
             salePrice:data.salePrice,
             quantity:data.quantity,
@@ -291,8 +297,10 @@ module.exports = {
     getAllProducts,
     addProductOffer,
     removeProductOffer,
+
     blockProduct,
     unblockProduct,
+    
     getEditProduct,
     editProduct,
     deleteSingleImage,
