@@ -15,7 +15,7 @@ const loadHomePage = async (req, res) => {
     try {
         const user = req.session.user || req.user;
 
-        // Fetch products where `isBlocked` is false
+       
         const products = await Product.find({ isBlocked: false }).populate("category");
 
         if (user) {
@@ -25,10 +25,10 @@ const loadHomePage = async (req, res) => {
                 return res.status(404).send('User not found');
             }
 
-            // Render home page with user data and products
+           
             return res.render("home", { user: userData, products });
         } else {
-            // Render home page with only products
+           
             return res.render("home", { products });
         }
     } catch (error) {

@@ -1,18 +1,6 @@
 
       <%-include("../../views/partials/user/header.ejs")%>
-      <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
-        <link rel="stylesheet" href="fonts/icomoon/style.css">
-    
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/magnific-popup.css">
-        <link rel="stylesheet" href="css/jquery-ui.css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <link rel="stylesheet" href="css/owl.theme.default.min.css">
-        <link rel="stylesheet" href="css/aos.css">
-
-        <link rel="stylesheet" href="css/style.css">
-      </head>
+   
       
   
       <div class="site-blocks-cover" data-aos="fade">
@@ -20,15 +8,11 @@
           <div class="row">
             <div class="col-md-6 ml-auto order-md-2 align-self-start">
               <div class="site-block-cover-content">
-                <!-- <header> -->
-                  <h2 class="sub-title">#New Summer Collection 2024</h2>
-                  <h1>Arrivals Sales</h1>
-                <!-- </header> -->
-                <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
+               
               </div>
             </div>
             <div class="col-md-6 order-1 align-self-end">
-              <img src="/images/model_5" alt="New Summer Collection 2024" class="img-fluid">
+              <img src="/images/model_3.png" alt="New Summer Collection 2024" class="img-fluid">
             </div>
           </div>
         </div>
@@ -75,13 +59,14 @@
 
           <% products.forEach(product => { %>
             <div class="col-lg-4 col-md-6 item-entry mb-4">
-              <a href="#" class="product-item md-height bg-gray d-block">
+              <a href="/product/<%= product._id %>" class="product-item md-height bg-gray d-block">
                 <img src="/uploads/product-images/<%= product.productImage[0] %>" class="img-fluid" alt="<%= product.productName %>">
                 
               </a>
               <h2 class="item-title"><a href="#"><%= product.productName%></a></h2>
              
-              <strong class="item-price">₹<%= product.regularPrice.toFixed(2) %></strong>
+              <strong class="item-price">₹<del><%= product.regularPrice.toFixed(2) %></del></strong><br>
+              <strong class="item-price">₹<%= product.salePrice.toFixed(2) %></strong>
             </div>
 
            
@@ -102,7 +87,7 @@
       </div>
     </div>
 
-    <div class="site-section">
+    <!-- <div class="site-section">
       <div class="container">
         <div class="row">
           <div class="title-section text-center mb-5 col-12">
@@ -218,6 +203,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <%-include("../../views/partials/user/footer.ejs")%>
     
